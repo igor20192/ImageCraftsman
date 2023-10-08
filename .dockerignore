@@ -1,0 +1,21 @@
+# Files we don't want to copy in our Docker Image
+*.egg-info
+.vscode
+.coverage
+.tox
+build
+coverage-html
+docs/_site
+venv
+env
+.tox
+**/*.pyc
+.cache
+media
+Dockerfile
+README.md
+LICENSE
+docker-compose.yml
+Makefile
+Vagrantfile
+
