@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
+from datetime import timedelta
+from django.utils import timezone
 
 
 class CustomSubscriptionPlan(models.Model):
@@ -40,7 +42,15 @@ class Image(models.Model):
             ),
         ],
     )
+    expiration_date = models.DateTimeField(null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        if not self.expiration_date:
+            self.expiration_date = timezone.now() + timedelta(
+                seconds=self.link_expiration_time
+            )
+        super(Image, self).save(*args, **kwargs)
