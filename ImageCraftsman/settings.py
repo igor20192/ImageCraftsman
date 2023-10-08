@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "ImageCraftApp",
+    "debug_toolbar",
 ]
 
 REST_FRAMEWORK = {
@@ -62,7 +63,29 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
+
+DEBUG_TOOLBAR_CONFIG = {
+    "SHOW_TOOLBAR_CALLBACK": lambda request: DEBUG,
+}
+
+if DEBUG:
+    import socket  # only if you haven't already imported this
+
+    hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+    INTERNAL_IPS = [ip[: ip.rfind(".")] + ".1" for ip in ips] + [
+        "127.0.0.1",
+        "10.0.2.2",
+    ]
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
+        "LOCATION": "127.0.0.1:11211",
+    }
+}
+
 
 ROOT_URLCONF = "ImageCraftsman.urls"
 
@@ -95,6 +118,19 @@ WSGI_APPLICATION = "ImageCraftsman.wsgi.application"
 # }
 # }
 DATABASES = {"default": env.db("DATABASE_URL")}
+
+# DATABASES for docker
+
+# DATABASES = {
+# "default": {
+# "ENGINE": env("DATABASE_ENGINE"),
+# "NAME": env("DATABASE_NAME"),
+# "USER": env("DATABASE_USERNAME"),
+# "PASSWORD": env("DATABASE_PASSWORD"),
+# "HOST": env("DATABASE_HOST"),
+# "PORT": env("DATABASE_PORT"),
+# }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
