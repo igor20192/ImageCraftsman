@@ -105,7 +105,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "ImageCraftsman.wsgi.application"
+# WSGI_APPLICATION = "ImageCraftsman.wsgi.application"
+ASGI_APPLICATION = "ImageCraftsman.asgi.application"
 
 
 # Database
@@ -117,20 +118,20 @@ WSGI_APPLICATION = "ImageCraftsman.wsgi.application"
 # "NAME": BASE_DIR / "db.sqlite3",
 # }
 # }
-DATABASES = {"default": env.db("DATABASE_URL")}
+# DATABASES = {"default": env.db("DATABASE_URL")}
 
 # DATABASES for docker
 
-# DATABASES = {
-# "default": {
-# "ENGINE": env("DATABASE_ENGINE"),
-# "NAME": env("DATABASE_NAME"),
-# "USER": env("DATABASE_USERNAME"),
-# "PASSWORD": env("DATABASE_PASSWORD"),
-# "HOST": env("DATABASE_HOST"),
-# "PORT": env("DATABASE_PORT"),
-# }
-# }
+DATABASES = {
+    "default": {
+        "ENGINE": env("DATABASE_ENGINE"),
+        "NAME": env("DATABASE_NAME"),
+        "USER": env("DATABASE_USERNAME"),
+        "PASSWORD": env("DATABASE_PASSWORD"),
+        "HOST": env("DATABASE_HOST"),
+        "PORT": env("DATABASE_PORT"),
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -167,7 +168,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
-MEDIA_URL = "media/"
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Default primary key field type
