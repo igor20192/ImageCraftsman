@@ -28,8 +28,8 @@ class Image(models.Model):
 
     title = models.CharField(max_length=100)
     image = models.ImageField(upload_to=images)
-    thumbnail_Basic = models.ImageField(upload_to=images, null=True)
-    thumbnail_Premium = models.ImageField(upload_to=images, null=True)
+    thumbnail_Basic = models.ImageField(upload_to=images, null=True, blank=True)
+    thumbnail_Premium = models.ImageField(upload_to=images, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     link_expiration_time = models.PositiveIntegerField(
         default=300,
