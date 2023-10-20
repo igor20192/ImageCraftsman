@@ -99,6 +99,16 @@ ImageCraftsman is a Django web application that allows users to upload images, c
 
 - Customize the subscription plans, image sizes, and other settings in your Django project settings.
 
+- CACHES configuration for Docker
+
+   ```bash
+        CACHES = {
+            "default": {
+                "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
+                "LOCATION": "memcached:11211",
+            }
+        }
+
 ## URL Patterns
 
 Here are the URL patterns used in the project:
