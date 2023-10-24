@@ -7,7 +7,7 @@ services:
       bash -c "export DJANGO_SETTINGS_MODULE=ImageCraftsman.settings &&
               python manage.py makemigrations &&
               python manage.py migrate &&
-              uvicorn ImageCraftsman.asgi:application --host 0.0.0.0 --port 8080"
+              gunicorn ImageCraftsman.asgi:application -c gunicorn_config.py"
     volumes:
       - ./media/:/usr/src/ImageCraftsman/media/
     ports:
