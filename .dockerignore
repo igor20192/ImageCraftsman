@@ -20,7 +20,6 @@ README.md
 LICENSE
 docker-compose.yml
 docker-compose.image.yml
-gunicorn_config.py
 debug.log
 run.py
 Makefile
