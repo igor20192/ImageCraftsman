@@ -106,7 +106,7 @@ class ImageCreateView(generics.CreateAPIView):
         Returns:
             Response: The serialized data as a Response object.
         """
-        response_serializer = ImageSerializer(instance, context={"create_mode": True})
+        response_serializer = ImageSerializer(instance)
         data = response_serializer.data
         return Response(data)
 
