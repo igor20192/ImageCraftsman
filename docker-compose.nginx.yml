@@ -8,9 +8,11 @@ services:
               python manage.py makemigrations &&
               python manage.py migrate &&
               gunicorn ImageCraftsman.asgi:application -c gunicorn_config.py"
-
-    ports:
-      - 8080:8080
+    volumes:
+      - ./:/usr/src/ImageCraftsman
+      - ./media/:/usr/src/ImageCraftsman/media/
+    expose:
+      - 8080
     env_file:
       - ./.env
     depends_on:
@@ -31,5 +33,14 @@ services:
     ports:
       - 11212:11211 # Откройте порт Memcached
 
+  nginx:
+    build: ./nginx
+    volumes:
+      - ./:/usr/src/ImageCraftsman
+      - ./media/:/usr/src/ImageCraftsman/media/
+    ports:
+      - 1337:80
+    depends_on:
+      - web
 volumes:
   postgres_data:
