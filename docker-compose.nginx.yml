@@ -39,7 +39,7 @@ services:
       - ./:/usr/src/ImageCraftsman
       - ./media/:/usr/src/ImageCraftsman/media/
     ports:
-      - 1337:80
+      - 80:80
     depends_on:
       - web
 volumes:
