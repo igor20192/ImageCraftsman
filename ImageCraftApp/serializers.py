@@ -61,21 +61,21 @@ class ImageSerializer(serializers.HyperlinkedModelSerializer):
                     f"/serve-image/{instance.pk}/?q={instance.thumbnail_Basic.path}"
                 )
                 return {"thumbnail_Basic": thumbnail_url}
-            else:
-                original_url = request.build_absolute_uri(
-                    f"/serve-image/{instance.pk}/?q={instance.image.path}"
-                )
-                thumbnail_url = request.build_absolute_uri(
-                    f"/serve-image/{instance.pk}/?q={instance.thumbnail_Basic.path}"
-                )
-                thumbnail_premium_url = request.build_absolute_uri(
-                    f"/serve-image/{instance.pk}/?q={instance.thumbnail_Premium.path}"
-                )
-                return {
-                    "thumbnail_Basic": thumbnail_url,
-                    "thumbnail_premium_url": thumbnail_premium_url,
-                    "original_image": original_url,
-                }
+
+            original_url = request.build_absolute_uri(
+                f"/serve-image/{instance.pk}/?q={instance.image.path}"
+            )
+            thumbnail_url = request.build_absolute_uri(
+                f"/serve-image/{instance.pk}/?q={instance.thumbnail_Basic.path}"
+            )
+            thumbnail_premium_url = request.build_absolute_uri(
+                f"/serve-image/{instance.pk}/?q={instance.thumbnail_Premium.path}"
+            )
+            return {
+                "thumbnail_Basic": thumbnail_url,
+                "thumbnail_premium_url": thumbnail_premium_url,
+                "original_image": original_url,
+            }
 
         return data
 
